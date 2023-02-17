@@ -17,9 +17,9 @@ function _basic_type_converter(df)
     int_col = []
     for i in names(df)
         try
-            if eltype(tryparse.(Int, df[!, i])) == Int
+            if eltype(tryparse.(Int, collect(skipmissing(df[!, i])))) == Int
                 int_col = vcat(int_col, i)
-            elseif eltype(tryparse.(Float64, df[!, i])) == Float64
+            elseif eltype(tryparse.(Float64, collect(skipmissing(df[!, i])))) == Float64
                 float_col = vcat(float_col, i)
             end
         catch
