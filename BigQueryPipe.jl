@@ -27,10 +27,10 @@ function _basic_type_converter(df)
     end
     try
         if length(int_col) > 0
-            transform!(df, int_col .=> ByRow(x -> parse(Int, x)) .=> int_col)
+            transform!(df, int_col .=> ByRow(x -> passmissing(parse)(Int, x)) .=> int_col)
         end
         if length(float_col) > 0
-            transform!(df, float_col .=> ByRow(x -> parse(Float64, x)) .=> float_col)
+            transform!(df, float_col .=> ByRow(x -> passmissing(parse)(Float64, x)) .=> float_col)
         end
     catch e
         println(e)
